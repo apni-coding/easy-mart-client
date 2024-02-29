@@ -62,7 +62,7 @@ const Register = () => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
             {otpSent ? ( 
-                <OTPVerify data={userData}/>
+                <OTPVerify data={userData} apiEndPoint='signup'/>
             ) : (
                 <Form
                     form={form}

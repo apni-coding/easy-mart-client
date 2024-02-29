@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, message } from 'antd';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
-const OTPVerify = ({data}) => {
+const OTPVerify = ({data, apiEndPoint}) => {
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
     const onFinish = async (values) => {
         data.otp = values.otp;
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/signup/verifyotp', data);
+            const response = await axios.post(`http://localhost:5000/api/auth/${apiEndPoint}/verifyotp`, data);
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token)
                 message.success('OTP verification successful!');
-                // Handle success scenario here, such as redirecting the user
+                navigate('/')
             } else {
                 message.error('OTP verification failed. Please try again.');
                 // Handle failure scenario here, such as displaying an error message to the user
